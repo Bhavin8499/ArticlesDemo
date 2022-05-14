@@ -20,7 +20,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', "Api\AuthController@logout");
     
     Route::prefix("articles")->group(function() {
-        Route::post("/", "Api\ArticleController@get");
+        Route::get("/", "Api\ArticleController@index");
+        Route::get("{id}", "Api\ArticleController@get");
         Route::post("create", "Api\ArticleController@save");
         Route::post("update/{id}", "Api\ArticleController@update");
     });

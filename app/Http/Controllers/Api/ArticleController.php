@@ -9,13 +9,36 @@ use Carbon\Carbon;
 
 class ArticleController extends Controller
 {
-    public function get() {
+    public function index() {
         $articles = Article::get();
         return response()->json(
             [
                 "status" => true,
                 "data" => [
                     "articles" => $articles
+                ],
+                "message" => "Articles found"
+            ]
+        );
+    }
+
+    public function get($id) {
+        $article = Article::find($id);
+
+        if (is_null($article))
+            return response()->json(
+                [
+                    "status" => false,
+                    "data" => [],
+                    "message" => "No article has been found"
+                ]
+            );
+
+        return response()->json(
+            [
+                "status" => true,
+                "data" => [
+                    "article" => $article
                 ],
                 "message" => "Articles found"
             ]
